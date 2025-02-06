@@ -1,0 +1,134 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    @apply bg-black text-white;
+}
+
+.content-submenu {
+    @apply w-full max-w-5xl mt-4 flex justify-end;
+}
+
+.sort-wrap {
+    @apply flex items-center space-x-4 bg-gray-800 px-4 py-2 rounded-lg;
+}
+
+.sort-direction {
+    @apply cursor-pointer text-gray-300 hover:text-white transition;
+}
+
+.filter-wrap {
+    @apply relative;
+}
+
+.current-filter {
+    @apply flex items-center cursor-pointer bg-gray-700 text-white px-3 py-1 rounded-md;
+}
+
+.arrow-down {
+    @apply w-3 h-3 ml-2 border-t-2 border-r-2 border-white rotate-45;
+}
+
+.all-filters {
+    @apply absolute right-0 mt-2 w-48 bg-gray-800 text-white rounded-md shadow-lg hidden;
+}
+
+.all-filters li {
+    @apply px-4 py-2 hover:bg-gray-700 cursor-pointer transition;
+}
+
+.loader {
+    @apply flex items-center justify-center mt-4;
+}
+
+.fullsize-loader {
+    @apply absolute top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50;
+}
+
+.fullsize-loader i {
+    @apply w-10 h-10 border-4 border-t-transparent border-white rounded-full animate-spin;
+}
+
+@media (max-width: 768px) {
+    .content-submenu {
+        @apply justify-center;
+    }
+
+    .sort-wrap {
+        @apply flex-col space-y-2;
+    }
+}
+
+.header-wrap {
+    position: fixed;
+    z-index: 200;
+    width: 100%;
+}
+
+.subpage-open .header-wrap {
+    position: absolute;
+}
+
+@layer utilities {
+    .transition-padding {
+        transition: padding-top 0.2s ease, padding-bottom 0.2s ease;
+    }
+}
+
+header {
+    background: linear-gradient(to right, #750000, #001f3f);
+    width: 100%;
+    padding: 25px 0;
+    position: relative;
+    z-index: 20;
+}
+
+.active header {
+    transition: opacity 0.7s ease 0.1s, padding-top 0.2s ease, padding-bottom 0.2s ease;
+    opacity: 1;
+}
+
+.sticky header {
+    padding: 10px 0;
+    opacity: 0.97;
+}
+
+.subpage-open header {
+    background: none;
+    padding: 25px 0;
+}
+
+.mobile-open header {
+    background: linear-gradient(to right, #750000, #001f3f);
+}
+
+.open-modal header {
+    padding-right: 17px;
+}
+
+.logo {
+    float: left;
+    opacity: 0.9;
+    cursor: pointer;
+    user-select: none;
+}
+
+.logo img {
+    transition: width 0.2s ease, height 0.2s ease;
+}
+
+main {
+    float: left;
+    width: 100%;
+    padding: 92px 0 0 0;
+    min-height: 100vh;
+}
+
+main.display-suggestions {
+    padding: 250px 0 0 0;
+}
+
+.no-scroll {
+    overflow: hidden;
+  }

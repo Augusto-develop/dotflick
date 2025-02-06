@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  vue-app:
+    container_name: vue-app
+    build: .
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    stdin_open: true
+    tty: true
