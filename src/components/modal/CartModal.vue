@@ -3,7 +3,7 @@
     <div v-if="isOpen" class="fixed left-0 w-full h-full bg-black/50 z-40" @click.self="closeModal"
       :style="{ top: layerTop }"></div>
     <transition name="slide">
-      <div v-if="isOpen"
+      <div v-if="isOpen" :class="{ 'overflow-y-auto': isMobile }"
         class="absolute top-full right-0 w-[500px] max-w-full bg-gray-800 shadow-lg flex flex-col z-50 text-white"
         :style="{ height: modalHeight }">
         <div class="flex justify-between items-center p-4">
@@ -78,7 +78,8 @@ export default {
       layerTop: "90",
       listMoviesCart: [],
       posterUrl: process.env.VUE_APP_IMAGE_TMDB_URL,
-      sumCart: 0
+      sumCart: 0,
+      isMobile: window.innerWidth < 768,
     };
   },
   computed: {
@@ -94,7 +95,7 @@ export default {
       }
     }
   },
-  methods: {
+  methods: {   
     formatToCurrency,
     ...mapActions('cart', ['addCart', 'removeCart', 'clearCart', 'closeCartModal']),
     ...mapActions('checkout', ['openCheckoutModal']),
@@ -146,8 +147,19 @@ export default {
     },
     updateModalHeight(newVal) {
       const headerHeight = newVal ? 60 : 90;
-      this.modalHeight = `calc(100vh - ${headerHeight}px)`;
-      this.layerTop = headerHeight;
+      // Verifique se o dispositivo é móvel
+      const isMobile = window.innerWidth < 768;
+
+      if (isMobile) {
+        // Em dispositivos móveis, você pode definir uma altura mínima ou um valor fixo
+        // ou ajustar com base no conteúdo
+        this.modalHeight = `calc(100vh - ${headerHeight + 50}px)`; // 50px para o botão
+        this.layerTop = headerHeight + 10; // Ajuste do topo para dispositivos móveis
+      } else {
+        // Em telas maiores, calcula a altura normalmente
+        this.modalHeight = `calc(100vh - ${headerHeight}px)`;
+        this.layerTop = headerHeight;
+      }
     },
     handleOpenCheckoutModal() {
       this.closeModal();
@@ -160,6 +172,9 @@ export default {
     if (this.isCartModalOpen) {
       this.showCart();
     }
+  },
+  created() {
+    window.addEventListener('resize', this.updateModalHeight);
   },
   beforeUnmount() {
     window.removeEventListener("resize", this.updateModalHeight);
