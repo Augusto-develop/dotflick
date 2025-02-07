@@ -1,5 +1,5 @@
-const API_URL = "https://api.themoviedb.org/3/";
-const API_KEY = "fed0514532b5f6a98a744b4ad6557801";
+const API_URL = process.env.VUE_APP_API_TMDB_URL;
+const API_KEY = process.env.VUE_APP_API_TMDB_KEY;
 
 export async function handleFetchMovies(query = "", page = 1) {
   const queryOn = query.length > 0;

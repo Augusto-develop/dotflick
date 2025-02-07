@@ -3,8 +3,9 @@
     <div v-if="isOpen" class="fixed left-0 w-full h-full bg-black/50 z-40" @click.self="closeModal"
       :style="{ top: layerTop }"></div>
     <transition name="slide">
-      <div v-if="isOpen" class="absolute top-full right-0 w-[500px] max-w-full bg-gray-800 shadow-lg
-         flex flex-col z-50 text-white" :style="{ height: modalHeight }">
+      <div v-if="isOpen"
+        class="absolute top-full right-0 w-[500px] max-w-full bg-gray-800 shadow-lg flex flex-col z-50 text-white"
+        :style="{ height: modalHeight }">
         <div class="flex justify-between items-center p-4">
           <h2 class="text-lg font-bold">Meu Carrinho</h2>
           <button @click="removeAllCart" class="text-red-400 text-sm hover:text-red-600 focus:outline-none">
@@ -12,6 +13,9 @@
           </button>
         </div>
         <div class="flex-1 overflow-y-auto">
+          <div v-if="listMoviesCart.length === 0" class="p-4 mt-4 text-center text-sm text-gray-400">
+            Carrinho vazio
+          </div>
           <ul class="list-none p-4">
             <li v-for="(movie, index) in listMoviesCart" :key="index"
               class="flex items-center mb-2 border-b border-gray-600 pb-2">
@@ -43,8 +47,10 @@
             <span class="text-xs">Total:</span>
             <span>{{ formatToCurrency(sumCart) }}</span>
           </div>
-          <button @click="handleOpenCheckoutModal" class="w-full mt-3 bg-green-600 text-white py-2 rounded-lg">Finalizar
-            Compra</button>
+          <button @click="handleOpenCheckoutModal" :disabled="listMoviesCart.length === 0"
+            class="w-full mt-3 bg-green-600 text-white py-2 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed">
+            Finalizar Compra
+          </button>
         </div>
       </div>
     </transition>

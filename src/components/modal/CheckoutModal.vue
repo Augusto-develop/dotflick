@@ -3,6 +3,9 @@
     <transition name="slide">
       <div v-if="isOpen" class="absolute top-full right-0 w-full max-w-full bg-gray-800 shadow-lg p-6
         flex flex-col md:flex-row z-50 text-white pt-[55px] overflow-y-auto" :style="{ height: modalHeight }">
+        <button @click="closeModal" class="absolute top-4 right-4 text-white text-2xl">
+          <XMarkIcon class="w-10 h-10"></XMarkIcon>
+        </button>
         <CheckoutForm ref="checkoutForm"></CheckoutForm>
         <div class="w-full md:w-1/2 pl-4 mt-6 md:mt-0">
           <div class="max-w-2xl mx-auto mt-[63px] pb-[90px]">
@@ -37,18 +40,22 @@
                 </div>
               </li>
             </ul>
+            <div v-if="listMoviesCart.length === 0" class="p-4 mt-4 text-center text-sm text-gray-400">
+              Carrinho vazio
+            </div>
             <div class="mt-4 text-lg font-bold flex justify-between">
               <span>Total:</span>
               <span>{{ formatToCurrency(sumCart) }}</span>
             </div>
-            <button @click="submitForm"
-              class="bg-green-500 hover:bg-green-600 text-white mt-4 p-3 w-full rounded-lg mt-[37px]">
+            <button @click="submitForm" :disabled="listMoviesCart.length === 0"
+              class="bg-green-500 hover:bg-green-600 text-white mt-4 p-3 w-full rounded-lg mt-[37px] disabled:opacity-50 disabled:cursor-not-allowed">
               Finalizar
             </button>
           </div>
         </div>
       </div>
     </transition>
+    <ConfirmModal></ConfirmModal>
   </div>
 </template>
 
@@ -57,13 +64,16 @@
 import { mapGetters, mapActions } from 'vuex';
 import { getMovieTitleById } from '@/service/movieService';
 import { convertTmdbToPrice, formatToCurrency } from '@/lib/utils';
-import { TrashIcon } from '@heroicons/vue/24/outline';
+import { TrashIcon, XMarkIcon } from '@heroicons/vue/24/outline';
 import CheckoutForm from '@/components/form/CheckoutForm.vue';
+import ConfirmModal from './ConfirmModal.vue';
 
 export default {
   components: {
     CheckoutForm,
-    TrashIcon
+    TrashIcon,
+    XMarkIcon,
+    ConfirmModal
   },
   props: {
     isOpen: Boolean,
@@ -74,7 +84,7 @@ export default {
       modalHeight: "calc(100vh - 90px)",
       listMoviesCart: [],
       posterUrl: process.env.VUE_APP_IMAGE_TMDB_URL,
-      sumCart: 0
+      sumCart: 0,
     }
   },
   computed: {
@@ -89,6 +99,9 @@ export default {
       if (newVal) {
         this.showCart();
       }
+    },
+    getCart() {
+      this.showCart();
     }
   },
   methods: {
@@ -97,6 +110,7 @@ export default {
     },
     formatToCurrency,
     ...mapActions('cart', ['addCart', 'removeCart', 'clearCart', 'closeCartModal']),
+    ...mapActions('checkout', ['closeCheckoutModal']),
     async showCart() {
       this.sumCart = 0;
       const savedMoviesCart = this.$store.state.cart.movies;
@@ -140,6 +154,9 @@ export default {
     removeMovieCart(movieid) {
       this.removeCart(movieid);
       this.showCart();
+    },
+    closeModal() {
+      this.closeCheckoutModal();
     },
   },
   mounted() {

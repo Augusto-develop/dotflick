@@ -3,7 +3,7 @@
         <div class="max-w-xl mx-auto">
             <h2 class="text-3xl font-bold mb-6 text-left">Finalizar Compra</h2>
             <form class="w-full" ref="checkoutForm" @submit.prevent="handleSubmit">
-                <div class="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-1">                    
+                <div class="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-1">
                     <div class="sm:col-span-1">
                         <label for="nome" class="label-input">Nome Completo</label>
                         <div class="mt-2">
@@ -14,7 +14,7 @@
                             <span v-if="!v$.nome.$model">O nome é obrigatório.</span>
                         </span>
                     </div>
-                </div>                
+                </div>
                 <div class="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2">
                     <div class="sm:col-span-1">
                         <label for="cpf" class="label-input">CPF</label>
@@ -40,7 +40,7 @@
                             <span v-else>Formato de celular inválido.</span>
                         </span>
                     </div>
-                </div>               
+                </div>
                 <div class="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-1">
                     <div class="sm:col-span-1">
                         <label for="email" class="label-input">E-mail</label>
@@ -55,7 +55,7 @@
                         </span>
                     </div>
                 </div>
-                <div class="mt-4 grid grid-cols-3 gap-x-6 gap-y-8">                   
+                <div class="mt-4 grid grid-cols-3 gap-x-6 gap-y-8">
                     <div class="col-span-1 sm:col-span-1">
                         <label for="cep" class="label-input">CEP</label>
                         <div class="mt-2">
@@ -67,7 +67,7 @@
                             <span v-if="!v$.cep.$model">O CEP é obrigatório.</span>
                             <span v-else>Formato de CEP inválido.</span>
                         </span>
-                    </div>                  
+                    </div>
                     <div class="col-span-2 sm:col-span-2">
                         <label for="endereco" class="label-input">Endereço</label>
                         <div class="mt-2">
@@ -79,7 +79,7 @@
                             O endereço é obrigatório.
                         </span>
                     </div>
-                </div>                
+                </div>
                 <div class="mt-4 grid grid-cols-3 gap-x-6 gap-y-8">
                     <div class="col-span-2 sm:col-span-2">
                         <label for="cidade" class="label-input">Cidade</label>
@@ -115,12 +115,13 @@
 import { required, email } from '@vuelidate/validators'
 import useVuelidate from '@vuelidate/core'
 import { ref } from 'vue'
+import { useStore } from 'vuex';
 import { maska } from 'maska'
 import { UFlist } from '@/lib/utils'
 import { cpfValidator, cepValidator, celularValidator } from '@/lib/validators'
 
 export default {
-    name: 'CheckoutForm',   
+    name: 'CheckoutForm',
     data() {
         return {
             ufs: UFlist,
@@ -130,6 +131,9 @@ export default {
         mask: maska
     },
     setup() {
+
+        const store = useStore();
+
         const form = ref({
             nome: '',
             cpf: '',
@@ -158,14 +162,32 @@ export default {
             v$.value.$touch()
             if (v$.value.$invalid) {
                 return
+            }           
+
+            store.dispatch('checkout/setPayerNameConfirmModal', form.value.nome)
+            store.dispatch('cart/clearCart')
+            store.dispatch('checkout/openConfirmModal')
+
+            form.value = {
+                nome: '',
+                cpf: '',
+                celular: '',
+                email: '',
+                cep: '',
+                endereco: '',
+                cidade: '',
+                estado: ''
             }
-            alert('Formulário enviado com sucesso!')
+        
+            v$.value.$reset()
         }
 
         return { form, v$, handleSubmit }
-    }
+    },
 }
 </script>
+
+
 
 <style scoped>
 .input-purple-dark {
