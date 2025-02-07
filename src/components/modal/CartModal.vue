@@ -12,7 +12,7 @@
             Esvaziar
           </button>
         </div>
-        <div class="flex-1 overflow-y-auto">
+        <div class="lg:flex-1 overflow-y-auto">
           <div v-if="listMoviesCart.length === 0" class="p-4 mt-4 text-center text-sm text-gray-400">
             Carrinho vazio
           </div>
