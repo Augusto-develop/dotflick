@@ -23,7 +23,7 @@
               <span v-if="idx < movie.genres.length - 1">, </span>
             </span>
           </div>
-          <div class="mt-1 text-sm">R$ 19,99</div>
+          <div class="mt-1 text-sm">{{ formatPrice(movie) }}</div>
           <div class="mt-2 w-full text-center py-2">
             <CartAdd :movie="movie"></CartAdd>
           </div>
@@ -43,15 +43,14 @@ import { StarIcon } from '@heroicons/vue/24/solid';
 import { handleFetchMovies } from "@/service/movieService";
 import FavoritesAdd from "@/components/layout/movie/FavoritesAdd.vue";
 import CartAdd from "@/components/layout/movie/CartAdd.vue";
-import { formatDate } from '@/lib/utils';
+import { formatDate, convertTmdbToPrice, formatToCurrency } from '@/lib/utils';
 
 export default {
   name: "HomePage",
   components: {
-    // HeartIcon,
     StarIcon,
     FavoritesAdd,
-    CartAdd
+    CartAdd,
   },
   data() {
     return {
@@ -116,6 +115,9 @@ export default {
     },
     formatDateRelease(data) {
       return formatDate(data);
+    },
+    formatPrice(movie) {
+      return formatToCurrency(convertTmdbToPrice(movie.vote_average));
     }
   }
 };

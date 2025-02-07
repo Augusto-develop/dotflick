@@ -1,50 +1,51 @@
 <template>
   <div class="relative">
-    <div v-if="isOpen" class="fixed left-0 w-full h-full bg-black/50 z-40" @click.self="$emit('close')"
+    <div v-if="isOpen" class="fixed left-0 w-full h-full bg-black/50 z-40" @click.self="closeModal"
       :style="{ top: layerTop }"></div>
     <transition name="slide">
-      <div v-if="isOpen" class="absolute top-full right-0 w-[500px] max-w-full bg-white shadow-lg p-4
-         flex flex-col overflow-y-auto z-50" :style="{ height: modalHeight }">
-
-        <div class="flex justify-between items-center border-b pb-2">
+      <div v-if="isOpen" class="absolute top-full right-0 w-[500px] max-w-full bg-gray-800 shadow-lg
+         flex flex-col z-50 text-white" :style="{ height: modalHeight }">
+        <div class="flex justify-between items-center p-4">
           <h2 class="text-lg font-bold">Meu Carrinho</h2>
-          <button @click="emptyCart" class="text-red-500 text-sm">Esvaziar</button>
+          <button @click="removeAllCart" class="text-red-400 text-sm hover:text-red-600 focus:outline-none">
+            Esvaziar
+          </button>
         </div>
-
-        <div class="flex-1 overflow-y-auto mt-4">
-          <ul class="list-none">
-            <li v-for="(movie, index) in listMoviesCart" :key="index" class="flex items-center mb-2 border-b pb-2">
-              <!-- Coluna com a miniatura e o título do filme -->
+        <div class="flex-1 overflow-y-auto">
+          <ul class="list-none p-4">
+            <li v-for="(movie, index) in listMoviesCart" :key="index"
+              class="flex items-center mb-2 border-b border-gray-600 pb-2">
               <span class="w-1/2 flex items-center overflow-hidden truncate">
                 <img :src="movie.miniature" :alt="movie.title" class="poster mr-2" width="30px" height="45px" />
-                <span class="truncate" :title="movie.title">{{ movie.title }}</span> <!-- Adicionado o title -->
+                <span class="truncate" :title="movie.title">{{ movie.title }}</span>
               </span>
-
-              <!-- Coluna de Quantidade -->
               <span class="w-1/4 text-center">
                 {{ movie.qtde }}
               </span>
-
-              <!-- Coluna de Preço -->
               <span class="w-1/4 text-center">
-                R$ {{ movie.preco }}
+                {{ movie.price }}
               </span>
-
-              <!-- Botão de remoção -->
-              <button @click="removeMovieCart(movie.id)" class="text-red-500 text-sm w-1/4 text-center">🗑️</button>
+              <div class="flex items-center justify-center w-auto">
+                <div class="relative group mx-4">
+                  <TrashIcon @click="removeMovieCart(movie.id)"
+                    class="w-6 h-6 text-gray-400 cursor-pointer group-hover:text-red-400 transition-colors" />
+                  <div id="tooltip-remove-favorite" role="tooltip"
+                    class="absolute invisible group-hover:visible inline-block px-2 py-1 mt-2 text-xs font-medium text-white bg-gray-700 rounded-lg shadow-xs opacity-0 group-hover:opacity-100 transition-opacity tooltip dark:bg-gray-700 top-full left-1/2 transform -translate-x-1/2 z-50 whitespace-nowrap">
+                    Remover
+                  </div>
+                </div>
+              </div>
             </li>
           </ul>
         </div>
-
-        <div class="border-t pt-3">
+        <div class="p-4">
           <div class="flex justify-between font-bold text-lg">
-            <span>Total:</span>
-            <span>R$ 19,90</span>
+            <span class="text-xs">Total:</span>
+            <span>{{ formatToCurrency(sumCart) }}</span>
           </div>
-          <button class="w-full mt-3 bg-green-600 text-white py-2 rounded-lg">Finalizar Compra</button>
+          <button @click="handleOpenCheckoutModal" class="w-full mt-3 bg-green-600 text-white py-2 rounded-lg">Finalizar
+            Compra</button>
         </div>
-
-        <!-- <button @click="$emit('close')" class="absolute top-2 right-2 text-gray-500 text-lg">✖</button> -->
       </div>
     </transition>
   </div>
@@ -53,9 +54,14 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import { getMovieTitleById } from '@/service/movieService';
+import { convertTmdbToPrice, formatToCurrency } from '@/lib/utils';
+import { TrashIcon } from '@heroicons/vue/24/outline';
 
 export default {
   name: "CartModal",
+  components: {
+    TrashIcon
+  },
   props: {
     isOpen: Boolean,
     sticky: Boolean,
@@ -65,11 +71,12 @@ export default {
       modalHeight: "calc(100vh - 90px)",
       layerTop: "90",
       listMoviesCart: [],
-      posterUrl: "https://image.tmdb.org/t/p/w500"
+      posterUrl: "https://image.tmdb.org/t/p/w500",
+      sumCart: 0
     };
   },
   computed: {
-    ...mapGetters('cart', ['getCart']),
+    ...mapGetters('cart', ['getCart', 'isCartModalOpen']),
   },
   watch: {
     sticky(newVal) {
@@ -78,23 +85,15 @@ export default {
     isOpen(newVal) {
       if (newVal) {
         this.showCart();
-        document.body.classList.add('no-scroll'); // Impede rolagem
-      } else {
-        document.body.classList.remove('no-scroll'); // Restaura rolagem
       }
     }
   },
-  mounted() {
-    this.updateModalHeight();
-    window.addEventListener("resize", this.updateModalHeight);
-  },
-  beforeUnmount() {
-    document.body.classList.remove('no-scroll');
-    window.removeEventListener("resize", this.updateModalHeight);
-  },
   methods: {
-    ...mapActions('cart', ['addCart', 'removeCart']),
+    formatToCurrency,
+    ...mapActions('cart', ['addCart', 'removeCart', 'clearCart', 'closeCartModal']),
+    ...mapActions('checkout', ['openCheckoutModal']),
     async showCart() {
+      this.sumCart = 0;
       const savedMoviesCart = this.$store.state.cart.movies;
       if (savedMoviesCart) {
         const countMovies = savedMoviesCart.reduce((acc, movieId) => {
@@ -107,11 +106,15 @@ export default {
             try {
               const movie = await getMovieTitleById(key);
               if (movie && movie.id) {
+
+                const price = convertTmdbToPrice(movie.vote_average);
+                this.sumCart += parseFloat(price);
+
                 return {
                   id: movie.id,
                   title: movie.title,
                   qtde: countMovies[key],
-                  preco: '19,99',
+                  price: formatToCurrency(price),
                   miniature: this.posterUrl + movie.poster_path,
                 };
               }
@@ -128,15 +131,32 @@ export default {
       this.removeCart(movieid);
       this.showCart();
     },
-    emptyCart() {
-      alert("Carrinho esvaziado!");
+    removeAllCart() {
+      this.clearCart();
+      this.showCart();
+    },
+    closeModal() {
+      this.closeCartModal();
     },
     updateModalHeight(newVal) {
-      // const header = document.querySelector(".header-wrap");
       const headerHeight = newVal ? 60 : 90;
       this.modalHeight = `calc(100vh - ${headerHeight}px)`;
       this.layerTop = headerHeight;
     },
+    handleOpenCheckoutModal() {
+      this.closeModal();
+      this.openCheckoutModal();
+    }
+  },
+  mounted() {
+    this.updateModalHeight();
+    window.addEventListener("resize", this.updateModalHeight);
+    if (this.isCartModalOpen) {
+      this.showCart();
+    }
+  },
+  beforeUnmount() {
+    window.removeEventListener("resize", this.updateModalHeight);
   },
 };
 </script>

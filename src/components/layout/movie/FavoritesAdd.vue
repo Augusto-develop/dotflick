@@ -11,12 +11,12 @@ import { mapGetters, mapActions } from 'vuex';
 import { HeartIcon } from '@heroicons/vue/24/solid';
 
 export default {
-  name: "FavoriteAdd",
-  props: {
-    movie: Object
-  },
+  name: "FavoriteAdd", 
   components: {
     HeartIcon
+  },
+  props: {
+    movie: Object
   },
   data() {
     return {
