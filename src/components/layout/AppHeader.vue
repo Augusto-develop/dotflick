@@ -3,7 +3,8 @@
     <header class="header transition-padding">
       <div class="wrap flex justify-between items-center px-4">
         <div class="logo h-[40px]">
-          <img src="@/assets/img/logo.svg" alt="DotFlick" width="190" height="40" />
+          <img v-if="!mobile" src="@/assets/img/logo.svg" alt="DotFlick" width="190" height="40" />
+          <img v-if="mobile" src="@/assets/img/logo-mini.svg" alt="DotFlick" width="190" height="40" />
         </div>
         <div class="flex-grow flex justify-center">
           <MoviesSearch :disabled="isAnyModalOpen"></MoviesSearch>
@@ -44,6 +45,7 @@ export default {
   data() {
     return {
       sticky: false,
+      isMobile: window.innerWidth < 768,
     };
   },
   computed: {

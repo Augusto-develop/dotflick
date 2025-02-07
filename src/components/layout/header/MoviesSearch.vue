@@ -1,6 +1,7 @@
 <template>
   <div class="wrap-search" :class="[{ 'disabled': isDisabled }]">
-    <input type="text" class="input-search" :disabled="isDisabled" v-model="query" @input="onSearchInput" placeholder="Buscar..." />
+    <input type="text" class="input-search" :disabled="isDisabled" v-model="query" 
+    @input="onSearchInput" placeholder="Buscar..." :class="{'max-w-[190px]': isMobile }" />
     <span class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400">     
       <MagnifyingGlassIcon class="w-5 h-5"></MagnifyingGlassIcon>
     </span>
@@ -26,6 +27,7 @@ export default {
   data() {
     return {     
       query: '',
+      isMobile: window.innerWidth < 768,
     };
   },
   mounted() {   
