@@ -101,6 +101,7 @@ export default {
   },
   mounted() {
     window.addEventListener("scroll", this.initSticky);
+    this.handleModalChange();
   },
   beforeUnmount() {
     window.removeEventListener("scroll", this.initSticky);

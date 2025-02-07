@@ -1,11 +1,8 @@
 <template>
   <div class="wrap-search" :class="[{ 'disabled': isDisabled }]">
     <input type="text" class="input-search" :disabled="isDisabled" v-model="query" @input="onSearchInput" placeholder="Buscar..." />
-    <span class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-          d="M11 4a7 7 0 100 14 7 7 0 000-14zm0 0v.01M15 15l4 4" />
-      </svg>
+    <span class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400">     
+      <MagnifyingGlassIcon class="w-5 h-5"></MagnifyingGlassIcon>
     </span>
   </div>
 </template>
@@ -13,11 +10,12 @@
 <script>
 
 import { mapActions } from 'vuex';
+import { MagnifyingGlassIcon  } from '@heroicons/vue/24/outline';
 
 export default {
   name: "MoviesSearch",
   components: {
-    
+    MagnifyingGlassIcon
   },
   props: {
     disabled: {

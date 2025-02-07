@@ -1,88 +1,109 @@
 <template>
     <div class="w-full md:w-1/2 pr-4 text-left">
         <div class="max-w-xl mx-auto">
-            <h2 class="text-xl font-bold mb-6 text-center">Finalizar Compra</h2>
+            <h2 class="text-3xl font-bold mb-6 text-left">Finalizar Compra</h2>
             <form class="w-full" ref="checkoutForm" @submit.prevent="handleSubmit">
-                <div class="grid md:grid-cols-1 md:gap-6">
-                    <div class="relative z-0 w-full mb-6 group">
-                        <input type="text" name="floating_first_name" id="floating_first_name"
-                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                            placeholder=" " required />
-                        <label for="floating_first_name"
-                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                            Nome Completo
-                        </label>
-                    </div>
-                </div>
-                <div class="grid md:grid-cols-2 md:gap-6">
-                    <div class="relative z-0 w-full mb-6 group">
-                        <input type="text" name="floating_cpf" id="floating_cpf" v-model="form.cpf" placeholder=" "
-                            v-mask="'###.###.###-##'" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 
-                            border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500
-                            focus:outline-none focus:ring-0 focus:border-blue-600 peer" />
-                        <label for="floating_cpf" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 
-                            transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 
-                            rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 
-                            peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 
-                            peer-focus:scale-75 peer-focus:-translate-y-6">CPF</label>
-                        <span v-if="v$.cpf.$error" class="text-red-500 text-sm mt-1 block">
-                            CPF Inválido
+                <div class="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-1">                    
+                    <div class="sm:col-span-1">
+                        <label for="nome" class="label-input">Nome Completo</label>
+                        <div class="mt-2">
+                            <input id="nome" name="nome" type="text" v-model="form.nome" placeholder=" " maxlength="100"
+                                :class="{ 'border-red-300': v$.nome.$error }" class="input-purple-dark">
+                        </div>
+                        <span v-if="v$.nome.$error" class="text-red-500 text-sm mt-2 block">
+                            <span v-if="!v$.nome.$model">O nome é obrigatório.</span>
                         </span>
                     </div>
-
-                    <div class="relative z-0 w-full mb-6 group">
-                        <input type="text" name="floating_cellphone" id="floating_cellphone" placeholder=" "
-                            v-model="form.phone" v-mask="'(##) #####-####'" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 
-                            border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 
-                            focus:outline-none focus:ring-0 focus:border-blue-600 peer" />
-
-                        <label for="floating_cellphone" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 
-                            transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 
-                            rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 
-                            peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 
-                            peer-focus:-translate-y-6">Celular</label>
-
-                        <span v-if="v$.phone.$error" class="text-red-500 text-sm mt-1 block">
-                            Telefone inválido
+                </div>                
+                <div class="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2">
+                    <div class="sm:col-span-1">
+                        <label for="cpf" class="label-input">CPF</label>
+                        <div class="mt-2">
+                            <input id="cpf" name="cpf" type="text" v-model="form.cpf" placeholder=" "
+                                v-mask="'###.###.###-##'" :class="{ 'border-red-300': v$.cpf.$error }"
+                                class="input-purple-dark">
+                        </div>
+                        <span v-if="v$.cpf.$error" class="text-red-500 text-sm mt-2 block">
+                            <span v-if="!v$.cpf.$model">O CPF é obrigatório.</span>
+                            <span v-else>O CPF é inválido.</span>
                         </span>
                     </div>
-                </div>
-                <div class="grid md:grid-cols-1 md:gap-6">
-                    <div class="relative z-0 w-full mb-6 group">
-                        <input type="email" name="floating_email" id="floating_email" v-model="form.email"
-                            v-validate="'required|email'" placeholder=" " class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 
-                                    border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 
-                                    focus:outline-none focus:ring-0 focus:border-blue-600 peer" />
-
-                        <label for="floating_email" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 
-                            duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 
-                            rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 
-                            peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 
-                            peer-focus:-translate-y-6">
-                            E-mail</label>
-
-                        <span v-if="v$.email.$error" class="text-red-500 text-sm mt-1 block">
-                            Email inválido
+                    <div class="sm:col-span-1">
+                        <label for="celular" class="label-input">Celular</label>
+                        <div class="mt-2">
+                            <input id="celular" name="celular" type="text" v-model="form.celular" placeholder=" "
+                                v-mask="'(##) #####-####'" :class="{ 'border-red-300': v$.celular.$error }"
+                                class="input-purple-dark">
+                        </div>
+                        <span v-if="v$.celular.$error" class="text-red-500 text-sm mt-2 block">
+                            <span v-if="!v$.celular.$model">O celular é obrigatório.</span>
+                            <span v-else>Formato de celular inválido.</span>
+                        </span>
+                    </div>
+                </div>               
+                <div class="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-1">
+                    <div class="sm:col-span-1">
+                        <label for="email" class="label-input">E-mail</label>
+                        <div class="mt-2">
+                            <input id="email" name="email" type="email" v-model="form.email" placeholder=" "
+                                maxlength="100" :class="{ 'border-red-300': v$.email.$error }"
+                                class="input-purple-dark">
+                        </div>
+                        <span v-if="v$.email.$error" class="text-red-500 text-sm mt-2 block">
+                            <span v-if="!v$.email.$model">O e-mail é obrigatório.</span>
+                            <span v-else>Formato de e-mail inválido.</span>
                         </span>
                     </div>
                 </div>
-                <div class="grid md:grid-cols-2 md:gap-6">
-                    <div class="relative z-0 w-full mb-6 group">
-                        <input type="text" name="floating_zip" id="floating_zip"
-                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                            placeholder=" " required />
-
-                        <label for="floating_zip"
-                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                            Cep</label>
+                <div class="mt-4 grid grid-cols-3 gap-x-6 gap-y-8">                   
+                    <div class="col-span-1 sm:col-span-1">
+                        <label for="cep" class="label-input">CEP</label>
+                        <div class="mt-2">
+                            <input id="cep" name="cep" type="text" v-model="form.cep" placeholder=" "
+                                v-mask="'##.###-###'" :class="{ 'border-red-300': v$.cep.$error }"
+                                class="input-purple-dark">
+                        </div>
+                        <span v-if="v$.cep.$error" class="text-red-500 text-sm mt-2 block">
+                            <span v-if="!v$.cep.$model">O CEP é obrigatório.</span>
+                            <span v-else>Formato de CEP inválido.</span>
+                        </span>
+                    </div>                  
+                    <div class="col-span-2 sm:col-span-2">
+                        <label for="endereco" class="label-input">Endereço</label>
+                        <div class="mt-2">
+                            <input name="endereco" id="endereco" type="text" v-model="form.endereco" placeholder=" "
+                                maxlength="100" :class="{ 'border-red-300': v$.endereco.$error }"
+                                class="input-purple-dark">
+                        </div>
+                        <span v-if="v$.endereco.$error" class="text-red-500 text-sm mt-2 block">
+                            O endereço é obrigatório.
+                        </span>
                     </div>
-                    <div class="relative z-0 w-full mb-6 group">
-                        <input type="text" name="floating_address" id="floating_address"
-                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                            placeholder=" " required />
-                        <label for="floating_address"
-                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                            Endereço</label>
+                </div>                
+                <div class="mt-4 grid grid-cols-3 gap-x-6 gap-y-8">
+                    <div class="col-span-2 sm:col-span-2">
+                        <label for="cidade" class="label-input">Cidade</label>
+                        <div class="mt-2">
+                            <input id="cidade" name="cidade" type="text" v-model="form.cidade" placeholder=" "
+                                maxlength="100" :class="{ 'border-red-300': v$.cidade.$error }"
+                                class="input-purple-dark">
+                        </div>
+                        <span v-if="v$.cidade.$error" class="text-red-500 text-sm mt-2 block">
+                            A cidade é obrigatória.
+                        </span>
+                    </div>
+                    <div class="col-span-1 sm:col-span-1">
+                        <label for="estado" class="label-input">UF</label>
+                        <div class="mt-2">
+                            <select name="estado" id="estado" v-model="form.estado"
+                                :class="{ 'border-red-300': v$.estado.$error }" class="input-purple-dark">
+                                <option value="" disabled selected>Selecione</option>
+                                <option v-for="uf in ufs" :key="uf" :value="uf">{{ uf }}</option>
+                            </select>
+                        </div>
+                        <span v-if="v$.estado.$error" class="text-red-500 text-sm mt-2 block">
+                            O UF é obrigatório.
+                        </span>
                     </div>
                 </div>
             </form>
@@ -95,26 +116,40 @@ import { required, email } from '@vuelidate/validators'
 import useVuelidate from '@vuelidate/core'
 import { ref } from 'vue'
 import { maska } from 'maska'
+import { UFlist } from '@/lib/utils'
+import { cpfValidator, cepValidator, celularValidator } from '@/lib/validators'
 
 export default {
-    name: 'CheckoutForm',
-    components: {
-        
+    name: 'CheckoutForm',   
+    data() {
+        return {
+            ufs: UFlist,
+        }
     },
     directives: {
-         mask: maska 
+        mask: maska
     },
     setup() {
         const form = ref({
+            nome: '',
+            cpf: '',
+            celular: '',
             email: '',
-            phone: '',
-            cpf: ''
+            cep: '',
+            endereco: '',
+            cidade: '',
+            estado: '',
         })
 
         const rules = {
+            nome: { required },
+            cpf: { required, cpfValidator },
+            celular: { required, celularValidator },
             email: { required, email },
-            phone: { required },
-            cpf: { required }
+            cep: { required, cepValidator },
+            endereco: { required },
+            cidade: { required },
+            estado: { required },
         }
 
         const v$ = useVuelidate(rules, form)
@@ -133,7 +168,11 @@ export default {
 </script>
 
 <style scoped>
-.label {
-    @apply peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6;
+.input-purple-dark {
+    @apply block w-full rounded-md bg-white dark:bg-gray-800 px-3 py-1.5 text-base text-gray-900 dark:text-white outline-none focus:outline-none focus:ring-0 focus:border-purple-500 dark:focus:border-purple-500 placeholder:text-gray-400 dark:placeholder-gray-500
+}
+
+.label-input {
+    @apply block text-sm font-medium text-gray-900 dark:text-white
 }
 </style>

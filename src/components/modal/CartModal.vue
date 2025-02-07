@@ -71,7 +71,7 @@ export default {
       modalHeight: "calc(100vh - 90px)",
       layerTop: "90",
       listMoviesCart: [],
-      posterUrl: "https://image.tmdb.org/t/p/w500",
+      posterUrl: process.env.VUE_APP_IMAGE_TMDB_URL,
       sumCart: 0
     };
   },
