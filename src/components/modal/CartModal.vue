@@ -47,7 +47,7 @@
             <span class="text-xs">Total:</span>
             <span>{{ formatToCurrency(sumCart) }}</span>
           </div>
-          <button @click="handleOpenCheckoutModal" :disabled="listMoviesCart.length === 0"
+          <button @click="handleOpenCheckoutModal" :disabled="listMoviesCart.length === 0" :class="{ 'mb-[100px]': isMobile }"
             class="w-full mt-3 bg-green-600 text-white py-2 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed">
             Finalizar Compra
           </button>
