@@ -4,8 +4,8 @@
       :style="{ top: layerTop }"></div>
     <transition name="slide">
       <div v-if="isOpen"
-        class="modal absolute top-full right-0 w-[500px] max-w-full bg-gray-800 shadow-lg flex flex-col z-50 text-white"
-        :style="{ minHeight: modalHeight }">
+        class="absolute top-full right-0 w-[500px] max-w-full bg-gray-800 shadow-lg flex flex-col z-50 text-white"
+        :style="{ height: modalHeight }">
         <div class="flex justify-between items-center p-4">
           <h2 class="text-lg font-bold">Meu Carrinho</h2>
           <button @click="removeAllCart" class="text-red-400 text-sm hover:text-red-600 focus:outline-none">
@@ -180,13 +180,5 @@ export default {
 
 .poster {
   object-fit: cover;
-}
-
-@media (max-width: 768px) {
-  .modal {
-    width: 100%;
-    min-height: 100%;
-    border-radius: 0;
-  }
 }
 </style>
