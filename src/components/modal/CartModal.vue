@@ -12,7 +12,7 @@
             Esvaziar
           </button>
         </div>
-        <div class="lg:flex-1 overflow-y-auto">
+        <div class="lg:flex-1" :class="{ 'overflow-y-auto': !isMobile }">
           <div v-if="listMoviesCart.length === 0" class="p-4 mt-4 text-center text-sm text-gray-400">
             Carrinho vazio
           </div>
@@ -95,7 +95,7 @@ export default {
       }
     }
   },
-  methods: {   
+  methods: {
     formatToCurrency,
     ...mapActions('cart', ['addCart', 'removeCart', 'clearCart', 'closeCartModal']),
     ...mapActions('checkout', ['openCheckoutModal']),
@@ -147,19 +147,8 @@ export default {
     },
     updateModalHeight(newVal) {
       const headerHeight = newVal ? 60 : 90;
-      // Verifique se o dispositivo é móvel
-      const isMobile = window.innerWidth < 768;
-
-      if (isMobile) {
-        // Em dispositivos móveis, você pode definir uma altura mínima ou um valor fixo
-        // ou ajustar com base no conteúdo
-        this.modalHeight = `calc(100vh - ${headerHeight + 50}px)`; // 50px para o botão
-        this.layerTop = headerHeight + 10; // Ajuste do topo para dispositivos móveis
-      } else {
-        // Em telas maiores, calcula a altura normalmente
-        this.modalHeight = `calc(100vh - ${headerHeight}px)`;
-        this.layerTop = headerHeight;
-      }
+      this.modalHeight = `calc(100vh - ${headerHeight}px)`;
+      this.layerTop = headerHeight;
     },
     handleOpenCheckoutModal() {
       this.closeModal();
