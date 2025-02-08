@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+@media (prefers-color-scheme: light) {
+    :root {
+        color-scheme: dark;
+    }
+}
+
+html,
+body {
+    @apply dark;
+}
+
 body {
     @apply bg-black text-white;
 }
@@ -131,4 +142,4 @@ main.display-suggestions {
 
 .no-scroll {
     overflow: hidden;
-  }
+}
