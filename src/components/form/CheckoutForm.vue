@@ -57,50 +57,51 @@
                         </span>
                     </div>
                 </div>
-                <div class="mt-4 grid grid-cols-3 gap-x-6 gap-y-8">
-                    <div class="col-span-1 sm:col-span-1">
+                <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-x-6 gap-y-8">
+                    <div class="sm:col-span-1">
                         <label for="cep" class="block text-sm font-medium text-gray-900 text-white">CEP</label>
                         <div class="mt-2">
                             <input id="cep" name="cep" type="text" v-model="form.cep" placeholder=" "
                                 v-mask="'##.###-###'" :class="{ 'border-red-300': v$.cep.$error }"
-                                class="block w-full rounded-md  bg-gray-800 px-3 py-1.5 text-base text-gray-900 text-white outline-none focus:outline-none focus:ring-0 focus:border-purple-500 focus:border-purple-500 placeholder:text-gray-400 placeholder-gray-500">
+                                class="block w-full rounded-md bg-gray-800 px-3 py-1.5 text-base text-gray-900 text-white outline-none focus:outline-none focus:ring-0 focus:border-purple-500 placeholder:text-gray-400 placeholder-gray-500">
                         </div>
                         <span v-if="v$.cep.$error" class="text-red-500 text-sm mt-2 block">
                             <span v-if="!v$.cep.$model">O CEP é obrigatório.</span>
                             <span v-else>Formato de CEP inválido.</span>
                         </span>
                     </div>
-                    <div class="col-span-2 sm:col-span-2">
+                    <div class="sm:col-span-2">
                         <label for="endereco"
                             class="block text-sm font-medium text-gray-900 text-white">Endereço</label>
                         <div class="mt-2">
                             <input name="endereco" id="endereco" type="text" v-model="form.endereco" placeholder=" "
                                 maxlength="100" :class="{ 'border-red-300': v$.endereco.$error }"
-                                class="block w-full rounded-md  bg-gray-800 px-3 py-1.5 text-base text-gray-900 text-white outline-none focus:outline-none focus:ring-0 focus:border-purple-500 focus:border-purple-500 placeholder:text-gray-400 placeholder-gray-500">
+                                class="block w-full rounded-md bg-gray-800 px-3 py-1.5 text-base text-gray-900 text-white outline-none focus:outline-none focus:ring-0 focus:border-purple-500 placeholder:text-gray-400 placeholder-gray-500">
                         </div>
                         <span v-if="v$.endereco.$error" class="text-red-500 text-sm mt-2 block">
                             O endereço é obrigatório.
                         </span>
                     </div>
                 </div>
-                <div class="mt-4 grid grid-cols-3 gap-x-6 gap-y-8">
-                    <div class="col-span-2 sm:col-span-2">
+
+                <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-x-6 gap-y-8">
+                    <div class="sm:col-span-2">
                         <label for="cidade" class="block text-sm font-medium text-gray-900 text-white">Cidade</label>
                         <div class="mt-2">
                             <input id="cidade" name="cidade" type="text" v-model="form.cidade" placeholder=" "
                                 maxlength="100" :class="{ 'border-red-300': v$.cidade.$error }"
-                                class="block w-full rounded-md  bg-gray-800 px-3 py-1.5 text-base text-gray-900 text-white outline-none focus:outline-none focus:ring-0 focus:border-purple-500 focus:border-purple-500 placeholder:text-gray-400 placeholder-gray-500">
+                                class="block w-full rounded-md bg-gray-800 px-3 py-1.5 text-base text-gray-900 text-white outline-none focus:outline-none focus:ring-0 focus:border-purple-500 placeholder:text-gray-400 placeholder-gray-500">
                         </div>
                         <span v-if="v$.cidade.$error" class="text-red-500 text-sm mt-2 block">
                             A cidade é obrigatória.
                         </span>
                     </div>
-                    <div class="col-span-1 sm:col-span-1">
+                    <div class="sm:col-span-1">
                         <label for="estado" class="block text-sm font-medium text-gray-900 text-white">UF</label>
                         <div class="mt-2">
                             <select name="estado" id="estado" v-model="form.estado"
                                 :class="{ 'border-red-300': v$.estado.$error }"
-                                class="block w-full rounded-md  bg-gray-800 px-3 py-1.5 text-base text-gray-900 text-white outline-none focus:outline-none focus:ring-0 focus:border-purple-500 focus:border-purple-500 placeholder:text-gray-400 placeholder-gray-500">
+                                class="block w-full rounded-md bg-gray-800 px-3 py-1.5 text-base text-gray-900 text-white outline-none focus:outline-none focus:ring-0 focus:border-purple-500 placeholder:text-gray-400 placeholder-gray-500">
                                 <option value="" disabled selected>Selecione</option>
                                 <option v-for="uf in ufs" :key="uf" :value="uf">{{ uf }}</option>
                             </select>
