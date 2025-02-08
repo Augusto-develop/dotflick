@@ -33,37 +33,38 @@
         w-full bg-black bg-opacity-75 text-white font-semibold
         opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center">
 
-          <!-- Data de lançamento com fontes menores no mobile -->
-          <div class="font-bold w-full text-lg bg-gray-700 bg-opacity-80 mb-2.5 text-yellow-500 
-        text-base sm:text-lg">
+          <!-- Data de lançamento com fontes menores no mobile e aumentando nas telas médias e grandes -->
+          <div
+            class="font-bold w-full text-base sm:text-lg md:text-xl lg:text-2xl bg-gray-700 bg-opacity-80 mb-2.5 text-yellow-500">
             {{ formatDateRelease(movie.release_date) }}
           </div>
 
-          <!-- Título do filme com fontes menores no mobile -->
-          <div class="font-bold text-lg sm:text-xl">
+          <!-- Título do filme com fontes menores no mobile e aumentando nas telas médias e grandes -->
+          <div class="font-bold text-lg sm:text-xl md:text-2xl lg:text-3xl">
             {{ movie.title }}
           </div>
 
           <div class="flex items-center mt-1">
             <StarIcon class="w-5 h-5 text-yellow-400" />
-            <span class="ml-2 text-sm sm:text-base">
+            <span class="ml-2 text-sm sm:text-base md:text-lg lg:text-xl">
               {{ formattedVoteAverage(movie) }}
             </span>
           </div>
 
-          <div class="mt-1 text-sm sm:text-base text-center">
+          <div class="mt-1 text-sm sm:text-base md:text-lg lg:text-xl text-center">
             <span v-for="(genre, idx) in movie.genres" :key="idx" class="mr-1">
               {{ genre.name }}
               <span v-if="idx < movie.genres.length - 1">, </span>
             </span>
           </div>
 
-          <div class="mt-1 text-sm sm:text-base">{{ formatPrice(movie) }}</div>
+          <div class="mt-1 text-sm sm:text-base md:text-lg lg:text-xl">{{ formatPrice(movie) }}</div>
 
           <div class="mt-2 w-full text-center py-2">
             <CartAdd :movie="movie"></CartAdd>
           </div>
         </div>
+
 
 
 
@@ -207,37 +208,13 @@ export default {
   /* Faz a descrição aparecer ao passar o mouse */
 }
 
-/* Fontes responsivas para informações do filme */
-.movie-item .layer-movie-info {
-  font-family: "Montserrat", sans-serif;
-  @apply text-xs sm:text-sm md:text-base lg:text-lg;
-}
 
-.movie-item .layer-movie-info .font-bold {
-  @apply text-xs sm:text-sm md:text-lg lg:text-xl;
-}
-
-.movie-item .layer-movie-info .text-sm {
-  @apply text-xs sm:text-sm md:text-base lg:text-lg;
-}
-
-.movie-item .layer-movie-info .text-lg {
-  @apply text-xs sm:text-sm md:text-base lg:text-lg;
-}
-
-.movie-item .layer-movie-info .text-center {
-  @apply text-xs sm:text-sm md:text-base lg:text-lg;
-}
-
-.movie-item .layer-movie-info .text-yellow-500 {
-  @apply text-xs sm:text-sm md:text-base lg:text-lg;
-}
-
-.movie-item .layer-movie-info .text-yellow-400 {
-  @apply text-xs sm:text-sm md:text-base lg:text-lg;
-}
 
 .movie-item .poster {
   @apply w-full h-full object-cover transition-all duration-300 group-hover:scale-110
+}
+
+.movie-item .layer-movie-info {
+  font-family: "Montserrat", sans-serif;
 }
 </style>
