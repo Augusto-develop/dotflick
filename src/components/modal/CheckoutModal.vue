@@ -33,7 +33,7 @@
                     <TrashIcon @click="removeMovieCart(movie.id)"
                       class="w-6 h-6 text-gray-400 cursor-pointer group-hover:text-red-400 transition-colors" />
                     <div id="tooltip-remove-favorite" role="tooltip"
-                      class="absolute invisible group-hover:visible inline-block px-2 py-1 mt-2 text-xs font-medium text-white bg-gray-700 rounded-lg shadow-xs opacity-0 group-hover:opacity-100 transition-opacity tooltip dark:bg-gray-700 top-full left-1/2 transform -translate-x-1/2 z-50 whitespace-nowrap">
+                      class="absolute invisible group-hover:visible inline-block px-2 py-1 mt-2 text-xs font-medium text-white bg-gray-700 rounded-lg shadow-xs opacity-0 group-hover:opacity-100 transition-opacity tooltip bg-gray-700 top-full left-1/2 transform -translate-x-1/2 z-50 whitespace-nowrap">
                       Remover
                     </div>
                   </div>
