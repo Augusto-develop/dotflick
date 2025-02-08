@@ -31,10 +31,11 @@
           </div>
         </div>
       </div>
-      <div v-if="isLoading" class="text-center py-4">
-        <p>Carregando...</p>
-      </div>
     </div>
+    <div v-if="isLoading" class="text-center py-4">
+      <p>Carregando...</p>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -157,6 +158,7 @@ export default {
   fill: white;
 }
 
+/* Descrição do filme */
 .movie-item .absolute.bottom-0.left-0 {
   transition: opacity 0.3s ease-in-out;
 }
@@ -165,6 +167,8 @@ export default {
   opacity: 1;
   /* Faz a descrição aparecer ao passar o mouse */
 }
+
+
 
 .movie-item .poster {
   @apply w-full h-full object-cover transition-all duration-300 group-hover:scale-110
