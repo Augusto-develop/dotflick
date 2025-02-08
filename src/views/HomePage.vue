@@ -4,79 +4,37 @@
       <div v-for="(movie, index) in movies" :key="index" class="movie-item group relative">
         <img :src="posterUrl + movie.poster_path" :alt="movie.title" class="poster" />
         <FavoritesAdd :movie="movie"></FavoritesAdd>
-
-        <!-- <div v-if="movie" class="layer-movie-info absolute bottom-0 left-0 
-        w-full bg-black bg-opacity-75 text-white text-xl font-semibold       
-         opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center          
-         ">
-          <div class="font-bold w-full text-lg bg-gray-700 bg-opacity-80 mb-2.5 text-yellow-500">{{
-            formatDateRelease(movie.release_date) }}
-          </div>
-          <div class="font-bold text-lg ">{{ movie.title }}</div>
-          <div class="flex items-center mt-1">
-            <StarIcon class="w-5 h-5 text-yellow-400" />
-            <span class="ml-2">{{ formattedVoteAverage(movie) }}</span>
-          </div>
-          <div class="mt-1 text-sm text-center">
-            <span v-for="(genre, idx) in movie.genres" :key="idx" class="mr-1">
-              {{ genre.name }}
-              <span v-if="idx < movie.genres.length - 1">, </span>
-            </span>
-          </div>
-          <div class="mt-1 text-sm">{{ formatPrice(movie) }}</div>
-          <div class="mt-2 w-full text-center py-2">
-            <CartAdd :movie="movie"></CartAdd>
-          </div>
-        </div> -->
-
-        <div v-if="movie" class="layer-movie-info absolute bottom-0 left-0 
-    w-full bg-black bg-opacity-75 text-white font-semibold
-    opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center">
-
-          <!-- Data de lançamento -->
-          <div class="font-bold w-full bg-gray-700 bg-opacity-80 mb-2.5 text-yellow-500 
-    text-xs sm:text-xs md:text-sm lg:text-base">
+        <div v-if="movie"
+          class="layer-movie-info absolute bottom-0 left-0  w-full bg-black bg-opacity-75 text-white font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center">
+          <div
+            class="font-bold w-full bg-gray-700 bg-opacity-80 mb-2.5 text-yellow-500  text-xs sm:text-xs md:text-sm lg:text-base">
             {{ formatDateRelease(movie.release_date) }}
           </div>
-
-          <!-- Título do filme -->
           <div class="font-bold text-xs sm:text-xs md:text-sm lg:text-base">
             {{ movie.title }}
           </div>
-
           <div class="flex items-center mt-1">
             <StarIcon class="w-5 h-5 text-yellow-400" />
             <span class="ml-2 text-xs sm:text-xs md:text-sm lg:text-base">
               {{ formattedVoteAverage(movie) }}
             </span>
           </div>
-
           <div class="mt-1 text-xs sm:text-xs md:text-sm lg:text-base text-center">
             <span v-for="(genre, idx) in movie.genres" :key="idx" class="mr-1">
               {{ genre.name }}
               <span v-if="idx < movie.genres.length - 1">, </span>
             </span>
           </div>
-
           <div class="mt-1 text-xs sm:text-xs md:text-sm lg:text-base">{{ formatPrice(movie) }}</div>
-
           <div class="mt-2 w-full text-center py-2">
             <CartAdd :movie="movie"></CartAdd>
           </div>
         </div>
-
-
-
-
-
-
       </div>
-
+      <div v-if="isLoading" class="text-center py-4">
+        <p>Carregando...</p>
+      </div>
     </div>
-    <div v-if="isLoading" class="text-center py-4">
-      <p>Carregando...</p>
-    </div>
-  </div>
 </template>
 
 <script>
@@ -199,7 +157,6 @@ export default {
   fill: white;
 }
 
-/* Descrição do filme */
 .movie-item .absolute.bottom-0.left-0 {
   transition: opacity 0.3s ease-in-out;
 }
@@ -208,8 +165,6 @@ export default {
   opacity: 1;
   /* Faz a descrição aparecer ao passar o mouse */
 }
-
-
 
 .movie-item .poster {
   @apply w-full h-full object-cover transition-all duration-300 group-hover:scale-110
