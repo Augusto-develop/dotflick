@@ -162,7 +162,7 @@ export default {
             v$.value.$touch()
             if (v$.value.$invalid) {
                 return
-            }           
+            }
 
             store.dispatch('checkout/setPayerNameConfirmModal', form.value.nome)
             store.dispatch('cart/clearCart')
@@ -178,7 +178,7 @@ export default {
                 cidade: '',
                 estado: ''
             }
-        
+
             v$.value.$reset()
         }
 
@@ -189,7 +189,7 @@ export default {
 
 
 
-<style scoped>
+<style>
 .input-purple-dark {
     @apply block w-full rounded-md bg-white dark:bg-gray-800 px-3 py-1.5 text-base text-gray-900 dark:text-white outline-none focus:outline-none focus:ring-0 focus:border-purple-500 dark:focus:border-purple-500 placeholder:text-gray-400 dark:placeholder-gray-500
 }
