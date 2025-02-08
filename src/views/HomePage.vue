@@ -207,13 +207,37 @@ export default {
   /* Faz a descrição aparecer ao passar o mouse */
 }
 
+/* Fontes responsivas para informações do filme */
+.movie-item .layer-movie-info {
+  font-family: "Montserrat", sans-serif;
+  @apply text-xs sm:text-sm md:text-base lg:text-lg;
+}
 
+.movie-item .layer-movie-info .font-bold {
+  @apply text-xs sm:text-sm md:text-lg lg:text-xl;
+}
+
+.movie-item .layer-movie-info .text-sm {
+  @apply text-xs sm:text-sm md:text-base lg:text-lg;
+}
+
+.movie-item .layer-movie-info .text-lg {
+  @apply text-xs sm:text-sm md:text-base lg:text-lg;
+}
+
+.movie-item .layer-movie-info .text-center {
+  @apply text-xs sm:text-sm md:text-base lg:text-lg;
+}
+
+.movie-item .layer-movie-info .text-yellow-500 {
+  @apply text-xs sm:text-sm md:text-base lg:text-lg;
+}
+
+.movie-item .layer-movie-info .text-yellow-400 {
+  @apply text-xs sm:text-sm md:text-base lg:text-lg;
+}
 
 .movie-item .poster {
   @apply w-full h-full object-cover transition-all duration-300 group-hover:scale-110
-}
-
-.movie-item .layer-movie-info {
-  font-family: "Montserrat", sans-serif;
 }
 </style>
