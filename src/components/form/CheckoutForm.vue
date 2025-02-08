@@ -5,10 +5,10 @@
             <form class="w-full" ref="checkoutForm" @submit.prevent="handleSubmit">
                 <div class="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-1">
                     <div class="sm:col-span-1">
-                        <label for="nome" class="label-input">Nome Completo</label>
+                        <label for="nome" class="block text-sm font-medium text-gray-900 dark:text-white">Nome Completo</label>
                         <div class="mt-2">
                             <input id="nome" name="nome" type="text" v-model="form.nome" placeholder=" " maxlength="100"
-                                :class="{ 'border-red-300': v$.nome.$error }" class="input-purple-dark">
+                                :class="{ 'border-red-300': v$.nome.$error }" class="block w-full rounded-md bg-white dark:bg-gray-800 px-3 py-1.5 text-base text-gray-900 dark:text-white outline-none focus:outline-none focus:ring-0 focus:border-purple-500 dark:focus:border-purple-500 placeholder:text-gray-400 dark:placeholder-gray-500">
                         </div>
                         <span v-if="v$.nome.$error" class="text-red-500 text-sm mt-2 block">
                             <span v-if="!v$.nome.$model">O nome é obrigatório.</span>
@@ -17,11 +17,11 @@
                 </div>
                 <div class="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2">
                     <div class="sm:col-span-1">
-                        <label for="cpf" class="label-input">CPF</label>
+                        <label for="cpf" class="block text-sm font-medium text-gray-900 dark:text-white">CPF</label>
                         <div class="mt-2">
                             <input id="cpf" name="cpf" type="text" v-model="form.cpf" placeholder=" "
                                 v-mask="'###.###.###-##'" :class="{ 'border-red-300': v$.cpf.$error }"
-                                class="input-purple-dark">
+                                class="block w-full rounded-md bg-white dark:bg-gray-800 px-3 py-1.5 text-base text-gray-900 dark:text-white outline-none focus:outline-none focus:ring-0 focus:border-purple-500 dark:focus:border-purple-500 placeholder:text-gray-400 dark:placeholder-gray-500">
                         </div>
                         <span v-if="v$.cpf.$error" class="text-red-500 text-sm mt-2 block">
                             <span v-if="!v$.cpf.$model">O CPF é obrigatório.</span>
@@ -29,11 +29,11 @@
                         </span>
                     </div>
                     <div class="sm:col-span-1">
-                        <label for="celular" class="label-input">Celular</label>
+                        <label for="celular" class="block text-sm font-medium text-gray-900 dark:text-white">Celular</label>
                         <div class="mt-2">
                             <input id="celular" name="celular" type="text" v-model="form.celular" placeholder=" "
                                 v-mask="'(##) #####-####'" :class="{ 'border-red-300': v$.celular.$error }"
-                                class="input-purple-dark">
+                                class="block w-full rounded-md bg-white dark:bg-gray-800 px-3 py-1.5 text-base text-gray-900 dark:text-white outline-none focus:outline-none focus:ring-0 focus:border-purple-500 dark:focus:border-purple-500 placeholder:text-gray-400 dark:placeholder-gray-500">
                         </div>
                         <span v-if="v$.celular.$error" class="text-red-500 text-sm mt-2 block">
                             <span v-if="!v$.celular.$model">O celular é obrigatório.</span>
@@ -43,11 +43,11 @@
                 </div>
                 <div class="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-1">
                     <div class="sm:col-span-1">
-                        <label for="email" class="label-input">E-mail</label>
+                        <label for="email" class="block text-sm font-medium text-gray-900 dark:text-white">E-mail</label>
                         <div class="mt-2">
                             <input id="email" name="email" type="email" v-model="form.email" placeholder=" "
                                 maxlength="100" :class="{ 'border-red-300': v$.email.$error }"
-                                class="input-purple-dark">
+                                class="block w-full rounded-md bg-white dark:bg-gray-800 px-3 py-1.5 text-base text-gray-900 dark:text-white outline-none focus:outline-none focus:ring-0 focus:border-purple-500 dark:focus:border-purple-500 placeholder:text-gray-400 dark:placeholder-gray-500">
                         </div>
                         <span v-if="v$.email.$error" class="text-red-500 text-sm mt-2 block">
                             <span v-if="!v$.email.$model">O e-mail é obrigatório.</span>
@@ -57,11 +57,11 @@
                 </div>
                 <div class="mt-4 grid grid-cols-3 gap-x-6 gap-y-8">
                     <div class="col-span-1 sm:col-span-1">
-                        <label for="cep" class="label-input">CEP</label>
+                        <label for="cep" class="block text-sm font-medium text-gray-900 dark:text-white">CEP</label>
                         <div class="mt-2">
                             <input id="cep" name="cep" type="text" v-model="form.cep" placeholder=" "
                                 v-mask="'##.###-###'" :class="{ 'border-red-300': v$.cep.$error }"
-                                class="input-purple-dark">
+                                class="block w-full rounded-md bg-white dark:bg-gray-800 px-3 py-1.5 text-base text-gray-900 dark:text-white outline-none focus:outline-none focus:ring-0 focus:border-purple-500 dark:focus:border-purple-500 placeholder:text-gray-400 dark:placeholder-gray-500">
                         </div>
                         <span v-if="v$.cep.$error" class="text-red-500 text-sm mt-2 block">
                             <span v-if="!v$.cep.$model">O CEP é obrigatório.</span>
@@ -69,11 +69,11 @@
                         </span>
                     </div>
                     <div class="col-span-2 sm:col-span-2">
-                        <label for="endereco" class="label-input">Endereço</label>
+                        <label for="endereco" class="block text-sm font-medium text-gray-900 dark:text-white">Endereço</label>
                         <div class="mt-2">
                             <input name="endereco" id="endereco" type="text" v-model="form.endereco" placeholder=" "
                                 maxlength="100" :class="{ 'border-red-300': v$.endereco.$error }"
-                                class="input-purple-dark">
+                                class="block w-full rounded-md bg-white dark:bg-gray-800 px-3 py-1.5 text-base text-gray-900 dark:text-white outline-none focus:outline-none focus:ring-0 focus:border-purple-500 dark:focus:border-purple-500 placeholder:text-gray-400 dark:placeholder-gray-500">
                         </div>
                         <span v-if="v$.endereco.$error" class="text-red-500 text-sm mt-2 block">
                             O endereço é obrigatório.
@@ -82,21 +82,21 @@
                 </div>
                 <div class="mt-4 grid grid-cols-3 gap-x-6 gap-y-8">
                     <div class="col-span-2 sm:col-span-2">
-                        <label for="cidade" class="label-input">Cidade</label>
+                        <label for="cidade" class="block text-sm font-medium text-gray-900 dark:text-white">Cidade</label>
                         <div class="mt-2">
                             <input id="cidade" name="cidade" type="text" v-model="form.cidade" placeholder=" "
                                 maxlength="100" :class="{ 'border-red-300': v$.cidade.$error }"
-                                class="input-purple-dark">
+                                class="block w-full rounded-md bg-white dark:bg-gray-800 px-3 py-1.5 text-base text-gray-900 dark:text-white outline-none focus:outline-none focus:ring-0 focus:border-purple-500 dark:focus:border-purple-500 placeholder:text-gray-400 dark:placeholder-gray-500">
                         </div>
                         <span v-if="v$.cidade.$error" class="text-red-500 text-sm mt-2 block">
                             A cidade é obrigatória.
                         </span>
                     </div>
                     <div class="col-span-1 sm:col-span-1">
-                        <label for="estado" class="label-input">UF</label>
+                        <label for="estado" class="block text-sm font-medium text-gray-900 dark:text-white">UF</label>
                         <div class="mt-2">
                             <select name="estado" id="estado" v-model="form.estado"
-                                :class="{ 'border-red-300': v$.estado.$error }" class="input-purple-dark">
+                                :class="{ 'border-red-300': v$.estado.$error }" class="block w-full rounded-md bg-white dark:bg-gray-800 px-3 py-1.5 text-base text-gray-900 dark:text-white outline-none focus:outline-none focus:ring-0 focus:border-purple-500 dark:focus:border-purple-500 placeholder:text-gray-400 dark:placeholder-gray-500">
                                 <option value="" disabled selected>Selecione</option>
                                 <option v-for="uf in ufs" :key="uf" :value="uf">{{ uf }}</option>
                             </select>
@@ -162,7 +162,7 @@ export default {
             v$.value.$touch()
             if (v$.value.$invalid) {
                 return
-            }
+            }           
 
             store.dispatch('checkout/setPayerNameConfirmModal', form.value.nome)
             store.dispatch('cart/clearCart')
@@ -178,7 +178,7 @@ export default {
                 cidade: '',
                 estado: ''
             }
-
+        
             v$.value.$reset()
         }
 
@@ -189,12 +189,6 @@ export default {
 
 
 
-<style>
-.input-purple-dark {
-    @apply block w-full rounded-md bg-white dark:bg-gray-800 px-3 py-1.5 text-base text-gray-900 dark:text-white outline-none focus:outline-none focus:ring-0 focus:border-purple-500 dark:focus:border-purple-500 placeholder:text-gray-400 dark:placeholder-gray-500
-}
+<style scoped>
 
-.label-input {
-    @apply block text-sm font-medium text-gray-900 dark:text-white
-}
 </style>
