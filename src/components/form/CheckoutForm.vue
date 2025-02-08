@@ -1,9 +1,9 @@
 <template>
-    <div class="w-full md:w-1/2 pr-4 text-left">
+    <div class="w-full md:w-1/2 text-left" :class="{ 'pr-4': !isMobile }">
         <div class="max-w-xl mx-auto">
             <h2 class="text-3xl font-bold mb-6 text-left">Finalizar Compra</h2>
             <form class="w-full" ref="checkoutForm" @submit.prevent="handleSubmit">
-                <div class="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-1">
+                <div class="mt-4 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-1">
                     <div class="sm:col-span-1">
                         <label for="nome" class="block text-sm font-medium text-gray-900 text-white">Nome
                             Completo</label>
@@ -17,7 +17,7 @@
                         </span>
                     </div>
                 </div>
-                <div class="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2">
+                <div class="mt-4 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
                     <div class="sm:col-span-1">
                         <label for="cpf" class="block text-sm font-medium text-gray-900 text-white">CPF</label>
                         <div class="mt-2">
@@ -43,7 +43,7 @@
                         </span>
                     </div>
                 </div>
-                <div class="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-1">
+                <div class="mt-4 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-1">
                     <div class="sm:col-span-1">
                         <label for="email" class="block text-sm font-medium text-gray-900 text-white">E-mail</label>
                         <div class="mt-2">
@@ -57,7 +57,7 @@
                         </span>
                     </div>
                 </div>
-                <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-x-6 gap-y-8">
+                <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-x-6 gap-y-4">
                     <div class="sm:col-span-1">
                         <label for="cep" class="block text-sm font-medium text-gray-900 text-white">CEP</label>
                         <div class="mt-2">
@@ -84,7 +84,7 @@
                     </div>
                 </div>
 
-                <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-x-6 gap-y-8">
+                <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-x-6 gap-y-4">
                     <div class="sm:col-span-2">
                         <label for="cidade" class="block text-sm font-medium text-gray-900 text-white">Cidade</label>
                         <div class="mt-2">
@@ -130,6 +130,7 @@ export default {
     data() {
         return {
             ufs: UFlist,
+            isMobile: window.innerWidth < 768,
         }
     },
     directives: {

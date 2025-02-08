@@ -7,7 +7,7 @@
           <XMarkIcon class="w-10 h-10"></XMarkIcon>
         </button>
         <CheckoutForm ref="checkoutForm"></CheckoutForm>
-        <div class="w-full md:w-1/2 pl-4 mt-6 md:mt-0">
+        <div class="w-full md:w-1/2 mt-6 md:mt-0" :class="{ 'pl-4': !isMobile }">
           <div class="max-w-2xl mx-auto mt-[63px] pb-[90px]">
             <ul class="space-y-3">
               <li class="flex justify-between border-b border-gray-700 pb-2">
@@ -47,7 +47,7 @@
               <span>Total:</span>
               <span>{{ formatToCurrency(sumCart) }}</span>
             </div>
-            <button @click="submitForm" :disabled="listMoviesCart.length === 0"
+            <button @click="submitForm" :disabled="listMoviesCart.length === 0" :class="{ 'mb-[100px]': isMobile }"
               class="bg-green-500 hover:bg-green-600 text-white mt-4 p-3 w-full rounded-lg mt-[37px] disabled:opacity-50 disabled:cursor-not-allowed">
               Finalizar
             </button>
@@ -85,6 +85,7 @@ export default {
       listMoviesCart: [],
       posterUrl: process.env.VUE_APP_IMAGE_TMDB_URL,
       sumCart: 0,
+      isMobile: window.innerWidth < 768,
     }
   },
   computed: {

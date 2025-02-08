@@ -5,7 +5,7 @@
         <img :src="posterUrl + movie.poster_path" :alt="movie.title" class="poster" />
         <FavoritesAdd :movie="movie"></FavoritesAdd>
 
-        <div v-if="movie" class="layer-movie-info absolute bottom-0 left-0 
+        <!-- <div v-if="movie" class="layer-movie-info absolute bottom-0 left-0 
         w-full bg-black bg-opacity-75 text-white text-xl font-semibold       
          opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center          
          ">
@@ -27,7 +27,47 @@
           <div class="mt-2 w-full text-center py-2">
             <CartAdd :movie="movie"></CartAdd>
           </div>
+        </div> -->
+
+        <div v-if="movie" class="layer-movie-info absolute bottom-0 left-0 
+        w-full bg-black bg-opacity-75 text-white font-semibold
+        opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center">
+
+          <!-- Data de lançamento com fontes menores no mobile -->
+          <div class="font-bold w-full text-lg bg-gray-700 bg-opacity-80 mb-2.5 text-yellow-500 
+        text-base sm:text-lg">
+            {{ formatDateRelease(movie.release_date) }}
+          </div>
+
+          <!-- Título do filme com fontes menores no mobile -->
+          <div class="font-bold text-lg sm:text-xl">
+            {{ movie.title }}
+          </div>
+
+          <div class="flex items-center mt-1">
+            <StarIcon class="w-5 h-5 text-yellow-400" />
+            <span class="ml-2 text-sm sm:text-base">
+              {{ formattedVoteAverage(movie) }}
+            </span>
+          </div>
+
+          <div class="mt-1 text-sm sm:text-base text-center">
+            <span v-for="(genre, idx) in movie.genres" :key="idx" class="mr-1">
+              {{ genre.name }}
+              <span v-if="idx < movie.genres.length - 1">, </span>
+            </span>
+          </div>
+
+          <div class="mt-1 text-sm sm:text-base">{{ formatPrice(movie) }}</div>
+
+          <div class="mt-2 w-full text-center py-2">
+            <CartAdd :movie="movie"></CartAdd>
+          </div>
         </div>
+
+
+
+
       </div>
 
     </div>
