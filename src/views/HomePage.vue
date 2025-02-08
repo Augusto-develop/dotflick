@@ -35,30 +35,30 @@
 
           <!-- Data de lançamento -->
           <div class="font-bold w-full bg-gray-700 bg-opacity-80 mb-2.5 text-yellow-500 
-    text-xs sm:text-sm md:text-sm lg:text-base">
+    text-xs sm:text-xs md:text-sm lg:text-base">
             {{ formatDateRelease(movie.release_date) }}
           </div>
 
           <!-- Título do filme -->
-          <div class="font-bold text-xs sm:text-sm md:text-sm lg:text-base">
+          <div class="font-bold text-xs sm:text-xs md:text-sm lg:text-base">
             {{ movie.title }}
           </div>
 
           <div class="flex items-center mt-1">
             <StarIcon class="w-5 h-5 text-yellow-400" />
-            <span class="ml-2 text-xs sm:text-sm md:text-sm lg:text-base">
+            <span class="ml-2 text-xs sm:text-xs md:text-sm lg:text-base">
               {{ formattedVoteAverage(movie) }}
             </span>
           </div>
 
-          <div class="mt-1 text-xs sm:text-sm md:text-sm lg:text-base text-center">
+          <div class="mt-1 text-xs sm:text-xs md:text-sm lg:text-base text-center">
             <span v-for="(genre, idx) in movie.genres" :key="idx" class="mr-1">
               {{ genre.name }}
               <span v-if="idx < movie.genres.length - 1">, </span>
             </span>
           </div>
 
-          <div class="mt-1 text-xs sm:text-sm md:text-sm lg:text-base">{{ formatPrice(movie) }}</div>
+          <div class="mt-1 text-xs sm:text-xs md:text-sm lg:text-base">{{ formatPrice(movie) }}</div>
 
           <div class="mt-2 w-full text-center py-2">
             <CartAdd :movie="movie"></CartAdd>
