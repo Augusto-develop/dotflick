@@ -85,9 +85,9 @@ export default {
       if (this.isLoading || !this.hasMore) return;
       this.isLoading = true;
       try {
-        const data = await handleFetchMovies(this.getQuery, this.currentPage);
+        const data = await handleFetchMovies(query, this.currentPage);
         if (data.results.length > 0) {
-          if (query.length > 0 && this.currentPage === 1) {
+          if (this.currentPage === 1) {
             this.movies = data.results;
           } else {
             this.movies.push(...data.results);

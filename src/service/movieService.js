@@ -2,7 +2,7 @@ const API_URL = process.env.VUE_APP_API_TMDB_URL;
 const API_KEY = process.env.VUE_APP_API_TMDB_KEY;
 
 export async function handleFetchMovies(query = "", page = 1) {
-  const queryOn = query.length > 0;
+  const queryOn = query.length > 0;  
 
   const endpoint = queryOn ? "search/movie" : "movie/popular";
   let url = `${API_URL}${endpoint}?language=pt-BR&api_key=${API_KEY}&page=${page}`;
